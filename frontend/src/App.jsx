@@ -4,6 +4,10 @@ import Loader from "./components/Loader";
 import FluidRipple from "./components/RippleEffect";
 import Navbar from "./components/Navbar";
 import Dashboard from "./components/Dashboard";
+import Chart from "./components/Chart";
+import BrandDeal from "./components/BrandDeal";
+import Hero from "./components/Hero";
+import Interactive3D from "./components/Interactive3D";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,18 +31,20 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
       <FluidRipple />
-      <header className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <h1 className="text-6xl font-bold mb-4 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
-            Welcome
-          </h1>
-          <p className="text-xl opacity-80 text-gray-700">
-            Your application has loaded successfully!
-          </p>
-        </div>
-      </header>
-      <section className="py-20">
+      <section id="hero-section">
+        <Hero />
+      </section>
+      <section id="chart-section" className="py-20">
+        <Chart />
+      </section>
+      <section id="dashboard-section" className="py-20">
         <Dashboard />
+      </section>
+      <section id="interactive-3d-section">
+        <Interactive3D />
+      </section>
+      <section id="brandeal-section" className="py-20">
+        <BrandDeal />
       </section>
       <Navbar />
     </div>

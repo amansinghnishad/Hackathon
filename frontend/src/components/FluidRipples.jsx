@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react';
-import * as THREE from 'three';
-import './FluidRipples.css';
+import React, { useRef, useEffect } from "react";
+import * as THREE from "three";
+import "./FluidRipples.css";
 
 const FluidRipples = () => {
   const mountRef = useRef(null);
@@ -78,10 +78,10 @@ const FluidRipples = () => {
 
     const handleMouseMove = (event) => {
       mouse.x = event.clientX / window.innerWidth;
-      mouse.y = 1.0 - (event.clientY / window.innerHeight);
+      mouse.y = 1.0 - event.clientY / window.innerHeight;
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
 
     const animate = () => {
       requestAnimationFrame(animate);
@@ -92,15 +92,14 @@ const FluidRipples = () => {
     animate();
 
     const handleResize = () => {
-        renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(window.innerWidth, window.innerHeight);
     };
 
-    window.addEventListener('resize', handleResize);
-
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("resize", handleResize);
       mount.removeChild(renderer.domElement);
     };
   }, []);

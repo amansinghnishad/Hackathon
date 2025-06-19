@@ -1,9 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Dashboard.css";
 
-const Dashboard = () => {  const [activeTab, setActiveTab] = useState("BILLING");
+const Dashboard = () => {
+  const [activeTab, setActiveTab] = useState("BILLING");
   const [isAutoRotating, setIsAutoRotating] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const [animateElements, setAnimateElements] = useState({
+    header: false,
+    tabs: false,
+    content: false,
+  });
+  const dashboardRef = useRef(null);
   const tabs = [
     { id: "BILLING", label: "BILLING", color: "pink" },
     { id: "CHARGING", label: "CHARGING", color: "yellow" },
@@ -18,11 +26,11 @@ const Dashboard = () => {  const [activeTab, setActiveTab] = useState("BILLING")
     }
 
     const progressInterval = setInterval(() => {
-      setProgress(prev => {
+      setProgress((prev) => {
         if (prev >= 100) {
           return 0;
         }
-        return prev + (100 / 30); // 3000ms / 100ms intervals
+        return prev + 100 / 30; // 3000ms / 100ms intervals
       });
     }, 100);
 
@@ -34,8 +42,8 @@ const Dashboard = () => {  const [activeTab, setActiveTab] = useState("BILLING")
     if (!isAutoRotating) return;
 
     const interval = setInterval(() => {
-      setActiveTab(prevTab => {
-        const currentIndex = tabs.findIndex(tab => tab.id === prevTab);
+      setActiveTab((prevTab) => {
+        const currentIndex = tabs.findIndex((tab) => tab.id === prevTab);
         const nextIndex = (currentIndex + 1) % tabs.length;
         return tabs[nextIndex].id;
       });
@@ -98,28 +106,75 @@ const Dashboard = () => {  const [activeTab, setActiveTab] = useState("BILLING")
     },
   };
 
+  // Intersection Observer for entrance animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            // Staggered animations
+            setTimeout(
+              () => setAnimateElements((prev) => ({ ...prev, header: true })),
+              100
+            );
+            setTimeout(
+              () => setAnimateElements((prev) => ({ ...prev, tabs: true })),
+              300
+            );
+            setTimeout(
+              () => setAnimateElements((prev) => ({ ...prev, content: true })),
+              500
+            );
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (dashboardRef.current) {
+      observer.observe(dashboardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="dashboard-container">
-      <div className="dashboard-header">
+    <div className="dashboard-container" ref={dashboardRef}>
+      {" "}
+      <div
+        className={`dashboard-header ${
+          animateElements.header ? "animate-header" : ""
+        }`}
+      >
         <h1 className="dashboard-title">
           <span className="title-main">Unparalleled</span>
           <span className="title-sub">BSS/OSS Capabilities</span>
         </h1>
-      </div>      <div className="tabs-container">
+      </div>
+      <div
+        className={`tabs-container ${
+          animateElements.tabs ? "animate-tabs" : ""
+        }`}
+      >
         <div className="dashboard-tabs">
-          {tabs.map((tab) => (            <button
+          {tabs.map((tab, index) => (
+            <button
               key={tab.id}
               className={`tab-button ${tab.color} ${
                 activeTab === tab.id ? "active" : ""
-              }`}
+              } ${animateElements.tabs ? "animate-tab" : ""}`}
               onClick={() => handleTabClick(tab.id)}
+              style={{
+                animationDelay: animateElements.tabs ? `${index * 0.1}s` : "0s",
+              }}
             >
               <div className="tab-icon"></div>
               <span className="tab-label">{tab.label}</span>
               {activeTab === tab.id && isAutoRotating && (
                 <div className="progress-bar">
-                  <div 
-                    className="progress-fill" 
+                  <div
+                    className="progress-fill"
                     style={{ width: `${progress}%` }}
                   ></div>
                 </div>
@@ -127,7 +182,12 @@ const Dashboard = () => {  const [activeTab, setActiveTab] = useState("BILLING")
             </button>
           ))}
         </div>
-      </div>      <div className="dashboard-content-wrapper">
+      </div>
+      <div
+        className={`dashboard-content-wrapper ${
+          animateElements.content ? "animate-content" : ""
+        }`}
+      >
         <div key={activeTab} className="dashboard-content">
           <div className="content-main">
             <h2 className="content-title">{tabContent[activeTab].title}</h2>
