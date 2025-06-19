@@ -1,0 +1,117 @@
+.bottom-navbar {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1001;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px; /* Reduced from 50px to 12px for boxy look */
+  padding: 4px 8px; /* Reduced from 8px 12px for tighter spacing */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  gap: 4px; /* Reduced from 8px for tighter spacing between items */
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 16px; /* Reduced from 12px 20px for more compact items */
+  border-radius: 4px !important; /* Force boxy styling for all nav items */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.nav-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.dropdown-icon {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 300;
+  transition: transform 0.3s ease;
+}
+
+.nav-item:hover .dropdown-icon {
+  transform: rotate(45deg);
+  color: rgba(255, 255, 255, 1);
+}
+
+.nav-button {
+  background: linear-gradient(135deg, #00d4ff, #00a8cc);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  color: white;
+  border-radius: 4px !important; /* Force same boxy radius for button */
+}
+
+.nav-button:hover {
+  background: linear-gradient(135deg, #00a8cc, #0088aa);
+  border-color: rgba(0, 212, 255, 0.5);
+  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+}
+
+.nav-button .nav-label {
+  color: white;
+  font-weight: 700;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .bottom-navbar {
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    transform: none;
+    width: calc(100% - 40px);
+  }
+  
+  .navbar-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+  
+  .nav-item {
+    padding: 10px 16px;
+  }
+  
+  .nav-label {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-container {
+    gap: 4px;
+  }
+  
+  .nav-item {
+    padding: 8px 12px;
+  }
+  
+  .nav-label {
+    font-size: 10px;
+  }
+}
