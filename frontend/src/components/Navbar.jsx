@@ -8,6 +8,7 @@ const Navbar = () => {
     { label: "ANALYTICS", targetId: "chart-section" },
     { label: "DASHBOARD", targetId: "dashboard-section" },
     { label: "3D PLAYGROUND", targetId: "interactive-3d-section" },
+    { label: "PRODUCTS", targetId: "product-showcase-section" },
     { label: "PARTNERS", targetId: "brandeal-section" },
     { label: "CONTACT", isButton: true, targetId: "hero-section" },
   ];

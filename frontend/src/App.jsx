@@ -8,6 +8,7 @@ import Chart from "./components/Chart";
 import BrandDeal from "./components/BrandDeal";
 import Hero from "./components/Hero";
 import Interactive3D from "./components/Interactive3D";
+import ProductShowcase from "./components/ProductShowcase";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -42,6 +43,9 @@ function App() {
       </section>
       <section id="interactive-3d-section">
         <Interactive3D />
+      </section>
+      <section id="product-showcase-section">
+        <ProductShowcase />
       </section>
       <section id="brandeal-section" className="py-20">
         <BrandDeal />
